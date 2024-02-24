@@ -14,6 +14,12 @@ import static com.avd.security.user.Role.MANAGER;
 public class SecurityApplication {
 
 	/*
+	* SETUP COMPLETED: Basic frontend implementation with Vite
+	* framework: React
+	* variant: Typescript + SWC
+	 */
+
+	/*
 	* SETUP COMPLETED: Basic backend security implementation
 	* from: https://github.com/ali-bouali/spring-boot-3-jwt-security
 	*
