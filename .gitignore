@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/user-auth-backend/src/main/resources/application.yml
+/user-auth-backend/.mvn/
