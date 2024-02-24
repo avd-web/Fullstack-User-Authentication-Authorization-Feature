@@ -1,12 +1,11 @@
-# User-auth-module
+# User login feature (authentication and authorization)
 
 ___
-## "A module for authenticating and authorizing website users."  
+## "A feature for authenticating and authorizing website users."  
 _Made by : avd-web (https://github.com/avd-web) _
 ___
 
 ## User-story
-
 _"As a website user, I want to be able to securely log in to the website using my username and password, and be granted access to resources and functionalities based on my assigned roles, so that I can interact with the website and perform authorized actions."_
 
 
@@ -41,10 +40,10 @@ Implement mechanisms for password reset and account recovery.
 Integrate with social login providers (optional).
 Implement multi-factor authentication for additional security (optional).
 Log and monitor user login activity for security purposes.
-This user story provides a high-level overview of the requirements for a user login and authorization module. The specific implementation details may vary depending on the specific needs of the application.
+This user story provides a high-level overview of the requirements for a user login and authorization feature. The specific implementation details may vary depending on the specific needs of the application.
 ___
 
-### Module-stack
+### Feature-stack
 #### Back-end:
 - Java
 - Spring Boot
