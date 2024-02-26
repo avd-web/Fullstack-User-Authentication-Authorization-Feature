@@ -1,9 +1,9 @@
-package com.avd.security;
+package com.avd.security.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SecurityApplicationTests {
 
 	@Test
