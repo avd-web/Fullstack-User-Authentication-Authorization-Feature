@@ -20,6 +20,20 @@ public class TestUtil {
         return User.builder().email(TestEmail).firstname(TestFirstname).lastname(TestLastname).password(TestPassword).role(TestRole).build();
     }
 
+    public static User createMockUser2() {
+        //Arrange
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder() {
+        };
+        //Arrange testable input-values for user1
+        String TestEmail = "user2@mail.com";
+        String TestFirstname = "user2Firstname";
+        String TestLastname = "user2Lastname";
+        String TestPassword = passwordEncoder.encode("password");
+        Role TestRole = Role.USER;
+        //Return User object via builder
+        return User.builder().email(TestEmail).firstname(TestFirstname).lastname(TestLastname).password(TestPassword).role(TestRole).build();
+    }
+
     public static User createMockAdmin1() {
         //Arrange
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder() {

@@ -18,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -41,7 +42,7 @@ public class AuthenticationControllerTests {
     @ValueSource(strings = {"user1234", "user12345"})
     public void testRegister(String input) throws Exception {
 
-        String requestBody = "{\"email\" : \"" + input + "@mail.com\", \"password\" : \""+ input + "\"}";
+        String requestBody = "{\"email\" : \"" + input + "@mail.com\", \"password\" : \"" + input + "\", " + "\"role\" : \"USER\"" + "}";
         mockMvc.perform(
                         post("/api/v1/auth/register")
                                 .content(requestBody)
@@ -51,33 +52,33 @@ public class AuthenticationControllerTests {
 
     }
 
-//    @ParameterizedTest
-//    @EmptySource
-//    public void testRegister2(String input) throws Exception {
-//
-//        String requestBody = "{\"username\" : \"user@mail.com\", \"password\" : \""+ input + "\"}";
-//        mockMvc.perform(
-//                        post("/api/v1/auth/register")
-//                                .content(requestBody)
-//                                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().is4xxClientError());
-//        assertTrue(Strings.isBlank(input));
-//
-//    }
+    @ParameterizedTest
+    @EmptySource
+    public void testRegister2(String input) throws Exception {
 
-//    @ParameterizedTest
-//    @NullSource
-//    public void testRegister3(String input) throws Exception {
-//
-//        String requestBody = "{\"username\" : \"user@mail.com\", \"password\" : \""+ input + "\"}";
-//        mockMvc.perform(
-//                        post("/api/v1/auth/register")
-//                                .content(requestBody)
-//                                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().is4xxClientError());
+        String requestBody = "{\"email\" : \"" + input + "@mail.com\", \"password\" : \"" + input + "\", " + "\"role\" : \"USER\"" + "}";
+        mockMvc.perform(
+                        post("/api/v1/auth/register")
+                                .content(requestBody)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
 //        assertTrue(Strings.isBlank(input));
-//
-//    }
+
+    }
+
+    @ParameterizedTest
+    @NullSource
+    public void testRegister3(String input) throws Exception {
+
+        String requestBody = "{\"email\" : \"" + input + "@mail.com\", \"password\" : \"" + input + "\", " + "\"role\" : \"USER\"" + "}";
+        mockMvc.perform(
+                        post("/api/v1/auth/register")
+                                .content(requestBody)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+//        assertTrue(Strings.isBlank(input));
+
+    }
 
     @Test
     @Transactional
@@ -97,4 +98,54 @@ public class AuthenticationControllerTests {
                 .andExpect(status().isOk());
 
     }
+
+    @Test
+    @Transactional
+    public void testAuthenticateBadCredentials() throws Exception {
+
+        User mockUser = TestUtil.createMockUser1();
+        testEntityManager.persist(mockUser);
+
+        String token = jwtService.generateToken(mockUser);
+        String jsonRequest = "{ \"email\": \"user1@mail.com\", \"password\": \"wrong-password\" }";
+
+        mockMvc.perform(
+                        post("http://localhost:8080/api/v1/auth/authenticate")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header("Authorization", "Bearer " + token)
+                                .content(jsonRequest))
+                .andExpect(status().is4xxClientError());
+
+    }
+
+    @Test
+    @Transactional
+    public void testRegisterANDAuthenticate() throws Exception {
+        String formattedRequestString =
+                "{\"email\" : \"user1@mail.com\", " +
+                        "\"password\" : \"password\", " +
+                        "\"role\" : \"USER\"} ";
+
+
+        String requestBody = formattedRequestString;
+        MvcResult response = mockMvc.perform(
+                post("/api/v1/auth/register")
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        String responseBody = response.getResponse().getContentAsString();
+        System.out.println(responseBody);
+        String token = responseBody.substring(17, responseBody.indexOf("\",\"refresh_token"));
+
+        String jsonRequest = formattedRequestString;
+
+        mockMvc.perform(
+                        post("http://localhost:8080/api/v1/auth/authenticate")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header("Authorization", "Bearer " + token)
+                                .content(jsonRequest))
+                .andExpect(status().isOk());
+
+    }
+
 }
