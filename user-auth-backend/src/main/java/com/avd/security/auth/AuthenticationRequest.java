@@ -1,5 +1,6 @@
 package com.avd.security.auth;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationRequest {
 
+  @NotNull
   private String email;
+  @NotNull
   String password;
 }

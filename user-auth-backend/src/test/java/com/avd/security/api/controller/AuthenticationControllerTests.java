@@ -74,7 +74,27 @@ public class AuthenticationControllerTests {
     @Test
     @Transactional
     public void testAuthenticateBadCredentials() throws Exception {
-        String jsonRequest = "{ \"email\": \"user1@mail.com\", \"password\": \"wrong-password\" }";
+        String jsonRequest = "{ \"email\": \"wrong@mail.com\", \"password\": \"wrong-password\" }";
+
+        User mockUser = TestUtil.createMockUser1();
+        testEntityManager.persist(mockUser);
+
+        String token = jwtService.generateToken(mockUser);
+
+
+        mockMvc.perform(
+                        post("http://localhost:8080/api/v1/auth/authenticate")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header("Authorization", "Bearer " + token)
+                                .content(jsonRequest))
+                .andExpect(status().is4xxClientError());
+
+    }
+
+    @Test
+    @Transactional
+    public void testAuthenticateWithoutCredentials() throws Exception {
+        String jsonRequest = "{}";
 
         User mockUser = TestUtil.createMockUser1();
         testEntityManager.persist(mockUser);
@@ -125,7 +145,7 @@ public class AuthenticationControllerTests {
         //TODO: add input validation at RegisterRequest class
 
         String jsonRequest = "" +
-                "{\"email\" : \"" + input + "@mail.com\"," +
+                "{\"email\" : \"" + input + "\"," +
                 " \"password\" : \"" + input + "\", " +
                 "\"role\" : \"USER\"" + "}";
         mockMvc.perform(

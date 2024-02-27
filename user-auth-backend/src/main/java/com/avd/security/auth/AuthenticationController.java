@@ -2,6 +2,7 @@ package com.avd.security.auth;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +22,13 @@ public class AuthenticationController {
 
   @PostMapping("/register")
   public ResponseEntity<AuthenticationResponse> register(
-      @RequestBody RegisterRequest request
+      @RequestBody @Valid RegisterRequest request
   ) {
     return ResponseEntity.ok(service.register(request));
   }
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
-      @RequestBody AuthenticationRequest request
+      @RequestBody @Valid AuthenticationRequest request
   ) {
     return ResponseEntity.ok(service.authenticate(request));
   }
