@@ -35,9 +35,9 @@ public class DemoController {
     return ResponseEntity.ok("Hello from secured endpoint");
   }
 
-  @ExceptionHandler(CustomException.class)
-  public ResponseEntity<String> handleCustomException(final CustomException ex) {
-    return ResponseEntity.badRequest().body("TEST2");
-  }
+//  @ExceptionHandler(CustomException.class)
+//  public ResponseEntity<String> handleCustomException(final CustomException ex) {
+//    return ResponseEntity.badRequest().body("TEST2");
+//  }
 
 }

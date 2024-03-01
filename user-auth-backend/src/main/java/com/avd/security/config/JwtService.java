@@ -2,6 +2,7 @@ package com.avd.security.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -79,7 +80,7 @@ public class JwtService {
     return extractClaim(token, Claims::getExpiration);
   }
 
-  private Claims extractAllClaims(String token) {
+  private Claims extractAllClaims(String token) throws MalformedJwtException {
     return Jwts
         .parserBuilder()
         .setSigningKey(getSignInKey())
