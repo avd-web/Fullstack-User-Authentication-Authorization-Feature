@@ -17,12 +17,12 @@ import org.springframework.web.server.ResponseStatusException;
 @Hidden
 public class DemoController {
 
-  private final ExceptionService exceptionService;
-
-  @Autowired
-  public DemoController(ExceptionService exceptionService){
-    this.exceptionService = exceptionService;
-  }
+//  private final ExceptionService exceptionService;
+//
+//  @Autowired
+//  public DemoController(ExceptionService exceptionService){
+//    this.exceptionService = exceptionService;
+//  }
 
 //  @GetMapping
 //  public ResponseEntity<String> sayHello() {
@@ -31,7 +31,7 @@ public class DemoController {
 
   @GetMapping
   public ResponseEntity<String> sayRisk() {
-      exceptionService.takeRisk();
+//      exceptionService.takeRisk();
     return ResponseEntity.ok("Hello from secured endpoint");
   }
 

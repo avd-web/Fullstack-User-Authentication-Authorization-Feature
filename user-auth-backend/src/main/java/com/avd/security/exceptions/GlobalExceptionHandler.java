@@ -6,11 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.rmi.ServerException;
 import java.security.SignatureException;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
 //    @ExceptionHandler(value = CustomException.class)
@@ -18,9 +19,9 @@ public class GlobalExceptionHandler {
 //        return ResponseEntity.badRequest().body(ex.getMessage());
 //    }
 
-    @ExceptionHandler(value = SignatureException.class)
-    public ResponseEntity<String> handleSignatureException(SignatureException ex) {
-        return ResponseEntity.badRequest().body("test");
+    @ExceptionHandler(SignatureException.class)
+    public ResponseEntity<String> handleSignatureException(final SignatureException ex) {
+        return ResponseEntity.badRequest().body("This is a SignatureException");
     }
 
     @ExceptionHandler(ServletException.class)
@@ -42,5 +43,10 @@ public class GlobalExceptionHandler {
 //            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
 //            errorDetail.setProperty("access_denied_reason", "Authentication Failure");
 //        }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(final Exception ex) {
+        return ResponseEntity.badRequest().body("This is an Exception");
+    }
 
 }
