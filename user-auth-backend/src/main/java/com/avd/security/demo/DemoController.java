@@ -31,7 +31,7 @@ public class DemoController {
 
   @GetMapping
   public ResponseEntity<String> sayRisk() {
-      exceptionService.takeRisk();
+//      exceptionService.takeRisk();
     return ResponseEntity.ok("Hello from secured endpoint");
   }
 
