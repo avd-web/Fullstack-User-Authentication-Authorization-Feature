@@ -1,52 +1,83 @@
 package com.avd.security.exceptions;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.ServletException;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.rmi.ServerException;
-import java.security.SignatureException;
+//import java.nio.file.AccessDeniedException;
+//import java.security.SignatureException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-//    @ExceptionHandler(value = CustomException.class)
-//    public ResponseEntity<String> handleCustomException(CustomException ex) {
-//        return ResponseEntity.badRequest().body(ex.getMessage());
-//    }
+    // Test CustomException via DemoController endpoint:
+    @ExceptionHandler(value = CustomException.class)
+    public ResponseEntity<String> handleCustomException(CustomException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 
+    // Implementation with ProblemDetail:
+    @ExceptionHandler(BadCredentialsException.class)
+    public ProblemDetail handleBadCredentialsException(final BadCredentialsException ex) {
+        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
+        errorDetail.setProperty("access_denied_reason", "Authentication Failure");
+        return errorDetail;
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ProblemDetail handleAccessDeniedException(final AccessDeniedException ex) {
+
+        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), ex.getMessage());
+        errorDetail.setProperty("access_denied_reason", "This is an AccessDeniedException");
+        return errorDetail;
+
+
+//        return ResponseEntity.badRequest().body("This is an AccessDeniedException");
+    }
+
+    // Implementation with ResponseEntity:
     @ExceptionHandler(SignatureException.class)
     public ResponseEntity<String> handleSignatureException(final SignatureException ex) {
         return ResponseEntity.badRequest().body("This is a SignatureException");
     }
 
     @ExceptionHandler(ServletException.class)
-    public ResponseEntity<String> handleServletException (final ServletException ex) {
+    public ResponseEntity<String> handleServletException(final ServletException ex) {
         return ResponseEntity.badRequest().body("This is a ServletException");
     }
 
-//    @ExceptionHandler(BadCredentialsException.class)
-//    public ResponseEntity<String> handleBadCredentialsException (final BadCredentialsException ex) {
-//        return ResponseEntity.badRequest().body("This is a BadCredentialsException");
-//    }
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ProblemDetail handleExpiredJwtException(final ExpiredJwtException ex) {
+        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), ex.getMessage());
+        errorDetail.setProperty("access_denied_reason", "JWT token already expired.");
+        return errorDetail;
+    }
 
     @ExceptionHandler(MalformedJwtException.class)
-    public ResponseEntity<String> handleMalformedJwtException (final MalformedJwtException ex) {
+    public ResponseEntity<String> handleMalformedJwtException(final MalformedJwtException ex) {
         return ResponseEntity.badRequest().body("This is a MalformedJwtException");
     }
 
-//    if (ex instanceof BadCredentialsException) {
-//            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
-//            errorDetail.setProperty("access_denied_reason", "Authentication Failure");
-//        }
-
+    // Generic Exception:
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(final Exception ex) {
         return ResponseEntity.badRequest().body("This is an Exception");
     }
+
+//    @ExceptionHandler(RuntimeException.class)
+//    public ProblemDetail handleRuntimeException(final RuntimeException ex) {
+//        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), ex.getMessage());
+//        errorDetail.setProperty("access_denied_reason", "This is a RuntimeException");
+//        return errorDetail;
+//
+//    }
 
 }
