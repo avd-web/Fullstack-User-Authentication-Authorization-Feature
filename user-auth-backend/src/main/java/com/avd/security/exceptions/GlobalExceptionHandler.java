@@ -12,9 +12,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-//import java.nio.file.AccessDeniedException;
-//import java.security.SignatureException;
-
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -39,8 +36,6 @@ public class GlobalExceptionHandler {
         errorDetail.setProperty("access_denied_reason", "This is an AccessDeniedException");
         return errorDetail;
 
-
-//        return ResponseEntity.badRequest().body("This is an AccessDeniedException");
     }
 
     // Implementation with ResponseEntity:
@@ -69,15 +64,7 @@ public class GlobalExceptionHandler {
     // Generic Exception:
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(final Exception ex) {
-        return ResponseEntity.badRequest().body("This is an Exception");
+        return ResponseEntity.badRequest().body("This is a generic-Exception");
     }
-
-//    @ExceptionHandler(RuntimeException.class)
-//    public ProblemDetail handleRuntimeException(final RuntimeException ex) {
-//        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), ex.getMessage());
-//        errorDetail.setProperty("access_denied_reason", "This is a RuntimeException");
-//        return errorDetail;
-//
-//    }
 
 }
