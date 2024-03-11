@@ -20,17 +20,20 @@ public class DemoController {
         this.exceptionService = exceptionService;
     }
 
+    //Normal endpoint
 //  @GetMapping
 //  public ResponseEntity<String> sayHello() {
 //    return ResponseEntity.ok("Hello from secured endpoint");
 //  }
 
+    //Throw Custom Exception
     @GetMapping
     public ResponseEntity<String> sayRisk() {
         exceptionService.takeRisk();
         return ResponseEntity.ok("exceptionService.takeRisk() didn't work. ");
     }
 
+    //Throw Custom Exception directly from Controller.
 //  @ExceptionHandler(CustomException.class)
 //  public ResponseEntity<String> handleCustomException(final CustomException ex) {
 //    return ResponseEntity.badRequest().body("I'm a CustomException thrown from the DemoController directly.");

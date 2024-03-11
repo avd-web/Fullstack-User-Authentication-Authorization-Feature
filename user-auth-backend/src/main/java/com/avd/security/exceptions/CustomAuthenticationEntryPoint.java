@@ -30,6 +30,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     }
 
 }
-record RestError(String status, String message){
+
+record RestError(String status, String message) {
 
 }

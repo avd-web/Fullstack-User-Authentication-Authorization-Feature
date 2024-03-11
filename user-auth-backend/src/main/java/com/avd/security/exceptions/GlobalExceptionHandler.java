@@ -15,6 +15,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    // Bad Credential : Authentication Failure : 401
+    // Access denied : Authorization ERROR : 403
+    // Invalid JWT Signature : 403 : (JWT) SignatureException
+    // Token Expired : ExpiredJwtException
+
+    // Todo: add seeder for users to be able to test auth.
+    // Todo: write failing tests for register and authentication errors.
+
     // Test CustomException via DemoController endpoint:
     @ExceptionHandler(value = CustomException.class)
     public ResponseEntity<String> handleCustomException(CustomException ex) {
