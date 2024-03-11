@@ -3,7 +3,7 @@ package com.avd.security.exceptions;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExceptionServiceImpl implements ExceptionService{
+public class ExceptionServiceImpl implements ExceptionService {
 
     @Override
     public void takeRisk() {
