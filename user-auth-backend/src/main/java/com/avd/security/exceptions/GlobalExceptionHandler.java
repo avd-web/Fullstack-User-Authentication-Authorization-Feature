@@ -12,16 +12,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-    // Bad Credential : Authentication Failure : 401
-    // Access denied : Authorization ERROR : 403
-    // Invalid JWT Signature : 403 : (JWT) SignatureException
-    // Token Expired : ExpiredJwtException
-
-    // Todo: add seeder for users to be able to test auth.
-    // Todo: write failing tests for register and authentication errors.
 
     // Test CustomException via DemoController endpoint:
     @ExceptionHandler(value = CustomException.class)
@@ -69,10 +63,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body("This is a MalformedJwtException");
     }
 
-    // Generic Exception:
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(final Exception ex) {
-        return ResponseEntity.badRequest().body("This is a generic-Exception");
+    @ExceptionHandler(SQLException.class)
+    public ResponseEntity<String> handleSQLException(final SQLException ex) {
+        return ResponseEntity.badRequest().body("This is an SQLException");
     }
+
+
+//    // Generic Exception: REMOVED, because this generic-exception overrides SQLException for some reason.
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<String> handleException(final Exception ex) {
+//        return ResponseEntity.badRequest().body("This is a generic-Exception");
+//    }
 
 }

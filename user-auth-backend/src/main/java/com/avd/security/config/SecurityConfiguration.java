@@ -87,9 +87,4 @@ public class SecurityConfiguration {
                 );
         return http.build();
     }
-
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<String> handleException(final Exception ex) {
-//        return ResponseEntity.badRequest().body("This is an Exception");
-//    }
 }

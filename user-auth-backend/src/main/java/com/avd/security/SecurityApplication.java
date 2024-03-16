@@ -32,11 +32,31 @@ public class SecurityApplication {
 	* POST http://localhost:8080/api/v1/auth/refresh-token
 	*
 	* NOTES / PROBLEMS:
-	* User can be registered without a role, request requires a "role" : "USER".
-	* Users can be registered double, which breaks up the authentication process.
+	* FIXED User can be registered without a role, request requires a "role" : "USER".
+	* FIXED Users can be registered double, which breaks up the authentication process.
 	* No input validations.
 	* No error handling or error messages.
 	* No tests available for testing authentication or authorization.
+	*/
+
+	/*
+	* Todo: Exception handling:
+	* Bad Credential : Authentication Failure : 401
+    * Access denied : Authorization ERROR : 403
+    * Invalid JWT Signature : 403 : (JWT) SignatureException
+    * Token Expired : ExpiredJwtException
+    *
+    * Todo: implement user-DTO
+    * Todo: answer, why is there an folder named "alibou" in target/classes/com folder?
+    * Todo: add user-seeder.
+    * Todo: write tests for register and authentication errors.
+    * Todo: test logout functionality.
+    * Todo: test refresh token functionality.
+    * Todo: verify the correct access and refresh token expiration dates.
+    * Todo: verify if secret-key in application.yml, and other (secret)keys are safe.
+    * Todo: test Github/VCS and online presence for security/personal leaks.
+    * Todo: complete end to end testing for user-auth module.
+    *
 	 */
 
 	public static void main(String[] args) {
