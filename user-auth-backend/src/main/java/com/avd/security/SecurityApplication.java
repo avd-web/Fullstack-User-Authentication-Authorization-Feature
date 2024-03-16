@@ -14,22 +14,6 @@ import static com.avd.security.user.Role.MANAGER;
 public class SecurityApplication {
 
 	/*
-	* SETUP COMPLETED: Basic frontend implementation with Vite
-	* framework: React
-	* variant: Typescript + SWC
-	 */
-
-	/*
-	* SETUP COMPLETED: Basic backend security implementation
-	* from: https://github.com/ali-bouali/spring-boot-3-jwt-security
-	*
-	* TESTED MANUALLY security setup (2024-02-24):
-	* REGISTER:	{"firstname" : "Arjan","lastname" : "van D","email" : "avd@mail.com","password" : "TEST1234","role" : "USER"}
-	* POST http://localhost:8080/api/v1/auth/authenticate
-	* GET http://localhost:8080/api/v1/demo-controller
-	* GET http://localhost:8080/api/v1/management
-	* GET http://localhost:8080/api/v1/admin
-	* POST http://localhost:8080/api/v1/auth/refresh-token
 	*
 	* NOTES / PROBLEMS:
 	* FIXED User can be registered without a role, request requires a "role" : "USER".
@@ -41,10 +25,23 @@ public class SecurityApplication {
 
 	/*
 	* Todo: Exception handling:
-	* Bad Credential : Authentication Failure : 401
-    * Access denied : Authorization ERROR : 403
-    * Invalid JWT Signature : 403 : (JWT) SignatureException
-    * Token Expired : ExpiredJwtException
+	* (Incorrect username/password) BadCredentialsException : 401 "Email and Password don't match."
+    * (Unauthorized for admin route) AccessDeniedException : 403 "Access denied."
+    * (Unauthorized for manager route) ServletException : 403 "Access denied."
+    * (Invalid JWT) SignatureException : 401 "Authentication failed, invalid token."
+    * (Malformed JWT) MalformedJwtException : 401 "Authentication failed, malformed token."
+    * (Empty JWT) customAuthenticationEntryPoint : 401 "Authentication failed, no token found."
+    * (double register, register a user that already exist) SQLException : 409(conflict) "Email already exist."
+    *
+    * (Refresh-token Expired) : ExpiredJwtException : 401 "Session expired."
+    * Is this all?
+    *
+    * Todo: refactor register request, how do users get their user role, register request requires "ROLE" : "USER"?
+    * Todo: refactor register request, how do users get their manager role?
+    * Todo: rethink how Admin role is used and created, all credentials are now public on GitHub?
+    *
+    * Todo: refactor error-messages to JSON format instead of String?
+    * Todo: refactor error-messages to the correct error for front-end users.
     *
     * Todo: implement user-DTO
     * Todo: answer, why is there an folder named "alibou" in target/classes/com folder?
@@ -57,6 +54,25 @@ public class SecurityApplication {
     * Todo: test Github/VCS and online presence for security/personal leaks.
     * Todo: complete end to end testing for user-auth module.
     *
+	 */
+
+	/*
+	 * SETUP COMPLETED: Basic frontend implementation with Vite.
+	 * framework: React
+	 * variant: Typescript + SWC
+	 */
+
+	/*
+	 * SETUP COMPLETED: Basic backend Spring-Security implementation
+	 * from: https://github.com/ali-bouali/spring-boot-3-jwt-security
+	 *
+	 * TESTED MANUALLY security setup (2024-02-24):
+	 * REGISTER:	{"firstname" : "Arjan","lastname" : "van D","email" : "avd@mail.com","password" : "TEST1234","role" : "USER"}
+	 * POST http://localhost:8080/api/v1/auth/authenticate
+	 * GET http://localhost:8080/api/v1/demo-controller
+	 * GET http://localhost:8080/api/v1/management
+	 * GET http://localhost:8080/api/v1/admin
+	 * POST http://localhost:8080/api/v1/auth/refresh-token
 	 */
 
 	public static void main(String[] args) {
