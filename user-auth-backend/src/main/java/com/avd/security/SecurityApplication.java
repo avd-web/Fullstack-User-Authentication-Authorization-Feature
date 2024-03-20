@@ -16,11 +16,6 @@ public class SecurityApplication {
 	/*
 	*
 	* NOTES / PROBLEMS:
-	* FIXED User can be registered without a role, request requires a "role" : "USER".
-	* FIXED Users can be registered double, which breaks up the authentication process.
-	* No input validations.
-	* No error handling or error messages.
-	* No tests available for testing authentication or authorization.
 	*/
 
 	/*
@@ -53,6 +48,9 @@ public class SecurityApplication {
     * Todo: verify if secret-key in application.yml, and other (secret)keys are safe.
     * Todo: test Github/VCS and online presence for security/personal leaks.
     * Todo: complete end to end testing for user-auth module.
+    *
+    * Todo: refactor code to correct code-standard
+    * Todo: fix errors "something is never used" in intelliJ.
     *
 	 */
 
