@@ -2,10 +2,8 @@ package com.avd.security.api.controller;
 
 import com.avd.security.api.TestUtil;
 import com.avd.security.config.JwtService;
-//import com.avd.security.user.User;
 import com.avd.security.user.User;
 import jakarta.transaction.Transactional;
-import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
@@ -20,7 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,11 +35,12 @@ public class AuthenticationControllerTests {
     @Autowired
     private TestEntityManager testEntityManager;
 
+    //Remove "role : USER" below
     @ParameterizedTest
-    @ValueSource(strings = {"user1234", "user12345"})
-    public void testRegister(String input) throws Exception {
+    @ValueSource(strings = {"user1234@mail.com", "user12345@mail.com"})
+    public void testRegisterCorrectly(String input) throws Exception {
 
-        String jsonRequest = "{\"email\" : \"" + input + "@mail.com\", \"password\" : \"" + input + "\", " + "\"role\" : \"USER\"" + "}";
+        String jsonRequest = "{\"email\" : \"" + input + "\", \"password\" : \"" + input + "\", " + "\"role\" : \"USER\"" + "}";
         mockMvc.perform(
                         post("/api/v1/auth/register")
                                 .content(jsonRequest)
@@ -52,9 +50,23 @@ public class AuthenticationControllerTests {
 
     }
 
+    //Remove "role : USER" below
+    @ParameterizedTest
+    @ValueSource(strings = {"", "1"})
+    public void testRegisterWrong(String input) throws Exception {
+
+        String jsonRequest = "{\"email\" : \"" + input + "\", \"password\" : \"" + input + "\", " + "\"role\" : \"USER\"" + "}";
+        mockMvc.perform(
+                        post("/api/v1/auth/register")
+                                .content(jsonRequest)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+
+    }
+
     @Test
     @Transactional
-    public void testAuthenticate() throws Exception {
+    public void testAuthenticateCorrectly() throws Exception {
 
         User mockUser = TestUtil.createMockUser1();
         testEntityManager.persist(mockUser);
@@ -93,7 +105,7 @@ public class AuthenticationControllerTests {
 
     @Test
     @Transactional
-    public void testAuthenticateWithoutCredentials() throws Exception {
+    public void testAuthenticateNoCredentials() throws Exception {
         String jsonRequest = "{}";
 
         User mockUser = TestUtil.createMockUser1();

@@ -15,6 +15,7 @@ public class TestUtil {
         String TestFirstname = "user1Firstname";
         String TestLastname = "user1Lastname";
         String TestPassword = passwordEncoder.encode("password");
+        //Remove "Role TestRole = Role.USER;" here.
         Role TestRole = Role.USER;
         //Return User object via builder
         return User.builder().email(TestEmail).firstname(TestFirstname).lastname(TestLastname).password(TestPassword).role(TestRole).build();
@@ -32,6 +33,20 @@ public class TestUtil {
         Role TestRole = Role.USER;
         //Return User object via builder
         return User.builder().email(TestEmail).firstname(TestFirstname).lastname(TestLastname).password(TestPassword).role(TestRole).build();
+    }
+
+    public static User createMockManager1() {
+        //Arrange
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder() {
+        };
+        //Arrange testable input-values for user1
+        String TestEmail = "manager1@mail.com";
+        String TestFirstname = "manager1Firstname";
+        String TestLastname = "manager1Lastname";
+        String TestPassword = passwordEncoder.encode("password");
+        Role TestRole = Role.MANAGER;
+        //Return User object via builder
+        return User.builder().email(TestEmail).firstname(TestFirstname).lastname(TestLastname).password(passwordEncoder.encode(TestPassword)).role(TestRole).build();
     }
 
     public static User createMockAdmin1() {
