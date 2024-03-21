@@ -20,7 +20,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
             throws IOException {
 
         RestError re = new RestError(HttpStatus.UNAUTHORIZED.toString(), "Authentication failed");
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+//        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         OutputStream responseStream = response.getOutputStream();
         ObjectMapper mapper = new ObjectMapper();

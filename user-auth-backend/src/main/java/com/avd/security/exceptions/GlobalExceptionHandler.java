@@ -60,7 +60,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MalformedJwtException.class)
     public ResponseEntity<String> handleMalformedJwtException(final MalformedJwtException ex) {
-        return ResponseEntity.badRequest().body("This is a MalformedJwtException");
+//        return ResponseEntity.badRequest().body("This is a MalformedJwtException");
+
+        //USE THIS WAY!
+        //ONLY CHANGE BODY OUTPUT TO JSON STRING
+        return ResponseEntity.status(409).body("This is a MalformedJwtException");
     }
 
     @ExceptionHandler(SQLException.class)
