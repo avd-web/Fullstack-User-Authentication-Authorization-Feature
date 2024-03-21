@@ -31,8 +31,7 @@ public class SecurityApplication {
     * (Refresh-token Expired) : ExpiredJwtException : 401 "Session expired."
     * Is this all?
     *
-    * Todo: refactor register request, how do users get their user role, register request requires "ROLE" : "USER"?
-    * Todo: refactor register request, how do users get their manager role?
+    * Done: Added overloaded register method in AuthenticationService, users get User roles automatically while registering via /register endpoint.
     * Todo: rethink how Admin role is used and created, all credentials are now public on GitHub?
     *
     * Todo: refactor error-messages to JSON format instead of String?
@@ -87,18 +86,16 @@ public class SecurityApplication {
 					.lastname("Admin")
 					.email("admin@mail.com")
 					.password("password")
-					.role(ADMIN)
 					.build();
-			System.out.println("Admin token: " + service.register(admin).getAccessToken());
+			System.out.println("Admin token: " + service.register(admin, ADMIN).getAccessToken());
 
 			var manager = RegisterRequest.builder()
 					.firstname("Admin")
 					.lastname("Admin")
 					.email("manager@mail.com")
 					.password("password")
-					.role(MANAGER)
 					.build();
-			System.out.println("Manager token: " + service.register(manager).getAccessToken());
+			System.out.println("Manager token: " + service.register(manager, MANAGER).getAccessToken());
 
 		};
 	}
