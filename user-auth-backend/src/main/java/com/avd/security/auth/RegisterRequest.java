@@ -1,6 +1,8 @@
 package com.avd.security.auth;
 
 import com.avd.security.user.Role;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ public class RegisterRequest {
   private String lastname;
   @NotNull
   @Size(min = 10, max = 30)
+  @Email(message="Please provide a valid email address")
   private String email;
   @NotNull
   @Size(min = 8, max = 100)
