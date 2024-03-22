@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(SignatureException.class)
     public ResponseEntity<String> handleSignatureException(final SignatureException ex) {
-        return ResponseEntity.status(401).body("{\"status\": \"401 UNAUTHORIZED\", \"message\":\"Authentication failed, invalid token.\"}");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"status\": \"401 UNAUTHORIZED\", \"message\":\"Authentication failed, invalid token.\"}");
     }
 
     @ExceptionHandler(ServletException.class)
