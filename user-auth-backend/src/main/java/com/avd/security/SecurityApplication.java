@@ -31,14 +31,16 @@ public class SecurityApplication {
     * (Refresh-token Expired) : ExpiredJwtException : 401 "Session expired."
     * Is this all?
     *
+    * Todo: Generic todos:
+    *      *
     * Done: Added overloaded register method in AuthenticationService, users get User roles automatically while registering via /register endpoint.
     * Todo: rethink how Admin role is used and created, all credentials are now public on GitHub?
     *
-    * Todo: refactor error-messages to JSON format instead of String?
-    * Todo: refactor error-messages to the correct error for front-end users.
+    * Done: decision: all error-messages are send as String, with JSON format. refactor error-messages to JSON format instead of String?
+    * Done: refactor error-messages to the correct error for front-end users.
     *
     * Todo: implement user-DTO
-    * Todo: answer, why is there an folder named "alibou" in target/classes/com folder?
+    * Done: decision: Deleted the "Alibou" named map in target.classes.com. Why is there an folder named "alibou" in target/classes/com folder?
     * Todo: add user-seeder.
     * Todo: write tests for register and authentication errors.
     * Todo: test logout functionality.
@@ -46,6 +48,7 @@ public class SecurityApplication {
     * Todo: verify the correct access and refresh token expiration dates.
     * Todo: verify if secret-key in application.yml, and other (secret)keys are safe.
     * Todo: test Github/VCS and online presence for security/personal leaks.
+    *
     * Todo: complete end to end testing for user-auth module.
     *
     * Todo: refactor code to correct code-standard
