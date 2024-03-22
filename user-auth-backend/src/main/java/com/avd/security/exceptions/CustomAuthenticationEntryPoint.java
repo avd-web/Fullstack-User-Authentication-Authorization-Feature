@@ -19,7 +19,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
             throws IOException {
 
-        RestError re = new RestError(HttpStatus.UNAUTHORIZED.toString(), "Authentication failed");
+        RestError re = new RestError(HttpStatus.UNAUTHORIZED.toString(), "Authentication failed, no token found.");
 //        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         OutputStream responseStream = response.getOutputStream();
