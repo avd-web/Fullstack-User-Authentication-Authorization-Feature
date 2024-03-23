@@ -2,12 +2,13 @@ package com.avd.security.exceptions;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.ServletException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
@@ -24,53 +25,60 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     // Test CustomException via DemoController endpoint:
-    @ExceptionHandler(value = CustomException.class)
-    public ResponseEntity<String> handleCustomException(CustomException ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
+    @ExceptionHandler(CustomException.class)
+    public ProblemDetail handleCustomException(final CustomException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST ,ex.getMessage());
     }
 
-//    // Implementation with ProblemDetail:
-//    @ExceptionHandler(BadCredentialsException.class)
-//    public ProblemDetail handleBadCredentialsException2(final BadCredentialsException ex) {
-//        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
-//        errorDetail.setProperty("access_denied_reason", "Authentication Failure");
-//        return errorDetail;
-//    }
-
-
+    // Implementation with ProblemDetail:
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<String> handleBadCredentialsException(final BadCredentialsException ex) {
-        return ResponseEntity.status(401).body("{\"status\": \"401 UNAUTHORIZED\", \"message\":\"Email and Password don't match.\"}");
+    public ProblemDetail handleBadCredentialsException(final BadCredentialsException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<String> handleAccessDeniedException(final AccessDeniedException ex) {
-        return ResponseEntity.status(403).body("{\"status\": \"403 FORBIDDEN\", \"message\":\"Access denied.\"}");
+    public ProblemDetail handleAccessDeniedException(final AccessDeniedException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
     }
 
     @ExceptionHandler(SignatureException.class)
-    public ResponseEntity<String> handleSignatureException(final SignatureException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"status\": \"401 UNAUTHORIZED\", \"message\":\"Authentication failed, invalid token.\"}");
+    public ProblemDetail handleSignatureException(final SignatureException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
     @ExceptionHandler(ServletException.class)
-    public ResponseEntity<String> handleServletException(final ServletException ex) {
-        return ResponseEntity.status(403).body("{\"status\": \"403 FORBIDDEN\", \"message\":\"Access denied.\"}");
+    public ProblemDetail handleServletException(final ServletException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, "Access Denied");
     }
 
     @ExceptionHandler(ExpiredJwtException.class)
-    public ResponseEntity<String> handleExpiredJwtException(final ExpiredJwtException ex) {
-        return ResponseEntity.status(401).body("{\"status\": \"401 UNAUTHORIZED\", \"message\":\"Session expired.\"}");
+    public ProblemDetail handleExpiredJwtException(final ExpiredJwtException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
     @ExceptionHandler(MalformedJwtException.class)
-    public ResponseEntity<String> handleMalformedJwtException(final MalformedJwtException ex) {
-        return ResponseEntity.status(401).body("{\"status\": \"401 UNAUTHORIZED\", \"message\":\"Authentication failed, malformed token.\"}");
+    public ProblemDetail handleMalformedJwtException(final MalformedJwtException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
     @ExceptionHandler(SQLException.class)
-    public ResponseEntity<String> handleSQLException(final SQLException ex) {
-        return ResponseEntity.status(409).body("{\"status\": \"409 CONFLICT\", \"message\":\"Email already exists.\"}");
+    public ProblemDetail handleSQLException(final SQLException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(UnsupportedJwtException.class)
+    public ProblemDetail handleUnsupportedJwtException(final UnsupportedJwtException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ProblemDetail handleDataIntegrityViolationException(final DataIntegrityViolationException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ProblemDetail handleHttpMessageNotReadableException(final HttpMessageNotReadableException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -85,10 +93,15 @@ public class GlobalExceptionHandler {
         return errors;
     }
 
-//    // Generic Exception: REMOVED, because this generic-exception overrides SQLException for some reason.
+    // Generic Exception:
 //    @ExceptionHandler(Exception.class)
 //    public ResponseEntity<String> handleException(final Exception ex) {
-//        return ResponseEntity.badRequest().body("This is a generic-Exception");
+//        return ResponseEntity.badRequest().body(ex.toString());
 //    }
+
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail handleException(final Exception ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
 
 }
