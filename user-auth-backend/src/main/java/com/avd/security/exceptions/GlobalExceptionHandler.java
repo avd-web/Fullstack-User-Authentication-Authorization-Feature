@@ -23,6 +23,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
+//    // Implementation with ProblemDetail:
+//    @ExceptionHandler(BadCredentialsException.class)
+//    public ProblemDetail handleBadCredentialsException2(final BadCredentialsException ex) {
+//        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
+//        errorDetail.setProperty("access_denied_reason", "Authentication Failure");
+//        return errorDetail;
+//    }
+
+
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<String> handleBadCredentialsException(final BadCredentialsException ex) {
         return ResponseEntity.status(401).body("{\"status\": \"401 UNAUTHORIZED\", \"message\":\"Email and Password don't match.\"}");
