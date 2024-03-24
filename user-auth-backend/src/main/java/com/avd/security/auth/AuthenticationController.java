@@ -24,12 +24,11 @@ public class AuthenticationController {
   @PostMapping("/register")
   public ResponseEntity<AuthenticationResponse> register(
       @RequestBody @Valid RegisterRequest request
-  ){
-      try {
+  ) throws SQLException {
+    if (!request.getPassword().equals(request.getConfirmPassword())) {
+      throw new IllegalArgumentException("Passwords must match");
+    }
         return ResponseEntity.ok(service.register(request));
-      } catch (SQLException ex){
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-      }
   }
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(

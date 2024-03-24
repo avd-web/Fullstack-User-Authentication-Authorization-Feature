@@ -31,8 +31,11 @@ public class SecurityApplication {
     * (Refresh-token Expired) : ExpiredJwtException : 401 "Session expired."
     * Is this all?
     *
+    * Todo: Validation (Email and password)
+    * Todo: Strong password validation
+    * Todo: ConfirmPassword: Password match validation, double password input, are they the same?
+    *
     * Todo: Generic todos:
-    *      *
     * Done: Added overloaded register method in AuthenticationService, users get User roles automatically while registering via /register endpoint.
     * Todo: rethink how Admin role is used and created, all credentials are now public on GitHub?
     *
