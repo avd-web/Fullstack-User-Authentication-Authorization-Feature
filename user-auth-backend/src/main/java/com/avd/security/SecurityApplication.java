@@ -32,8 +32,8 @@ public class SecurityApplication {
     * Is this all?
     *
     * Todo: Validation (Email and password)
-    * Todo: Strong password validation
-    * Todo: ConfirmPassword: Password match validation, double password input, are they the same?
+    * Done: Strong password validation
+    * Done: ConfirmPassword: Password match validation
     *
     * Todo: Generic todos:
     * Done: Added overloaded register method in AuthenticationService, users get User roles automatically while registering via /register endpoint.
