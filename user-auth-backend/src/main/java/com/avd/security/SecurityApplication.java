@@ -43,6 +43,7 @@ public class SecurityApplication {
     * Done: refactor error-messages to the correct error for front-end users.
     *
     * Todo: implement user-DTO
+    * Todo: implement email-verification for register
     * Done: decision: Deleted the "Alibou" named map in target.classes.com. Why is there an folder named "alibou" in target/classes/com folder?
     * Todo: add user-seeder.
     * Todo: write tests for register and authentication errors.
