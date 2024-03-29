@@ -1,0 +1,15 @@
+:root {
+  --color-black: black;
+  --color-grey: grey;
+}
+
+/* Header section */
+.header {
+  background: var(--color-grey);
+
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+
+  /* min-width: 1000px; */
+}
