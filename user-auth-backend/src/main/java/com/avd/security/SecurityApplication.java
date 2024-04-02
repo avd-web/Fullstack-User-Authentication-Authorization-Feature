@@ -27,6 +27,9 @@ public class SecurityApplication {
     * (Malformed JWT) MalformedJwtException : 401 "Authentication failed, malformed token."
     * (Empty JWT) customAuthenticationEntryPoint : 401 "Authentication failed, no token found."
     * (double register, register a user that already exist) SQLException : 409(conflict) "Email already exist."
+    * DataIntegrityViolationException
+    * HttpMessageNotReadableException
+    * MethodArgumentNotValidException
     *
     * (Refresh-token Expired) : ExpiredJwtException : 401 "Session expired."
     * Is this all?
@@ -58,6 +61,11 @@ public class SecurityApplication {
     * Todo: refactor code to correct code-standard
     * Todo: fix errors "something is never used" in intelliJ.
     *
+	 */
+
+	/*
+	* SETUP EXTRA (FRONTEND)
+	* Installed react-router-dom
 	 */
 
 	/*

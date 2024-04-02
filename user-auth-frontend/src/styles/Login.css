@@ -6,6 +6,10 @@
   /* background-color: blue; */
 
   /* justify-content: center; */
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   /* align-items: center; */
+}
+
+.login__field {
+  display: flex;
 }

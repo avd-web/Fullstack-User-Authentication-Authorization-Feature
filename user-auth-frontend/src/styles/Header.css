@@ -1,11 +1,10 @@
 :root {
   --color-black: black;
-  --color-grey: grey;
 }
 
 /* Header section */
 .header {
-  background: var(--color-grey);
+  background: var(--color-black);
 
   display: flex;
   justify-content: space-between;

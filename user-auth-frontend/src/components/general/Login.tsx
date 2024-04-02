@@ -50,9 +50,9 @@ export default function Login(): JSX.Element | null {
 
   return !auth ? ( // Render login form only if not authenticated
     <form className="login" onSubmit={handleSubmit}>
-      <div>
+      <div className="login__field">
         <label htmlFor="email" id="email-label">
-          E-mail:
+          Email:
         </label>
         <input
           type="text"
@@ -62,7 +62,7 @@ export default function Login(): JSX.Element | null {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <div>
+      <div className="login__field">
         <label htmlFor="password" id="password-label">
           Password:
         </label>

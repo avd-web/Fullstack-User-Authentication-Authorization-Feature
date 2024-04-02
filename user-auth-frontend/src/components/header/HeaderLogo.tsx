@@ -1,3 +1,7 @@
 export default function HeaderLogo() {
-  return <image></image>;
+  return (
+    <>
+      <div></div>
+    </>
+  );
 }

@@ -1,8 +1,64 @@
 export default function HomePage() {
   return (
     <>
-      <p>HomePage</p>
-      <section></section>
+      <section className="container block block--dark block--skewed-left hero">
+        <div className="grid grid--1x2">
+          <header>
+            <h1 data-aos="fade-right" className="block__heading">
+              This is a Hero-Heading!
+            </h1>
+            <p className="hero__tagline">This is the message Hero-Tagline.</p>
+            <a href="" className="btn btn--accent btn--stretched">
+              Get Started
+            </a>
+          </header>
+          <picture data-aos="zoom-in">
+            <source
+              type="image/webp"
+              srcSet="images/banner.webp 1x, images/banner@2x.webp 2x"
+            />
+            <source
+              type="image/png"
+              srcSet="images/banner.png 1x, images/banner@2x.png 2x"
+            />
+            <img className="hero__image" src="images/banner.png" alt="" />
+          </picture>
+        </div>
+      </section>
+
+      <section data-aos="fade-up" className="block container block-domain">
+        <header className="block__header">
+          <h2>This is a Block-Heading!</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti,
+            exercitationem?
+          </p>
+        </header>
+        <div className="input-group">
+          <input
+            type="text"
+            className="input"
+            placeholder="Enter domain name here..."
+          />
+          <button className="btn btn--accent">
+            {/* <svg className="icon icon--white">
+              <use xlinkHref="images/sprite.svg#search"></use>
+            </svg> */}
+            Search
+          </button>
+        </div>
+
+        <ul className="list block-domain__prices">
+          <li>
+            <span className="badge badge--secondary">.com $9</span>
+          </li>
+          <li>.sg $10</li>
+          <li>.space $11</li>
+          <li>.info $14</li>
+          <li>.net $10</li>
+          <li>.xyz $10</li>
+        </ul>
+      </section>
     </>
   );
 }
