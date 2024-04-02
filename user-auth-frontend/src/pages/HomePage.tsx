@@ -1,3 +1,5 @@
+import { FaSearch } from "react-icons/fa";
+
 export default function HomePage() {
   return (
     <>
@@ -13,15 +15,19 @@ export default function HomePage() {
             </a>
           </header>
           <picture data-aos="zoom-in">
-            <source
+            {/* <source
               type="image/webp"
-              srcSet="images/banner.webp 1x, images/banner@2x.webp 2x"
+              srcSet="http://localhost:5174/src/images/banner.webp 1x, images/banner@2x.webp 2x"
             />
             <source
               type="image/png"
-              srcSet="images/banner.png 1x, images/banner@2x.png 2x"
+              srcSet="http://localhost:5174/src/images/banner.png 1x, images/banner@2x.png 2x"
+            /> */}
+            <img
+              className="hero__image"
+              src="http://localhost:5174/src/images/banner.png"
+              alt=""
             />
-            <img className="hero__image" src="images/banner.png" alt="" />
           </picture>
         </div>
       </section>
@@ -41,9 +47,7 @@ export default function HomePage() {
             placeholder="Enter domain name here..."
           />
           <button className="btn btn--accent">
-            {/* <svg className="icon icon--white">
-              <use xlinkHref="images/sprite.svg#search"></use>
-            </svg> */}
+            <FaSearch className="icon icon--white" />
             Search
           </button>
         </div>

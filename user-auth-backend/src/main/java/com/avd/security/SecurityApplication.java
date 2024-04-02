@@ -66,6 +66,8 @@ public class SecurityApplication {
 	/*
 	* SETUP EXTRA (FRONTEND)
 	* Installed react-router-dom
+	* installed react icons
+	* 
 	 */
 
 	/*
