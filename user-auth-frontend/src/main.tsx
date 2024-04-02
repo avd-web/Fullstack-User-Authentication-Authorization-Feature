@@ -6,6 +6,9 @@ import UserPage from "./pages/UserPage";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 
+//Styles:
+import "./styles/Page-layout.css";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>

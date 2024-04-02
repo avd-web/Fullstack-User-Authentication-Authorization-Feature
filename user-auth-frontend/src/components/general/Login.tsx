@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // Assuming you use axios for API calls
 
+import "../../styles/Login.css";
+
 // Interface for User object (optional, but improves type safety)
 interface User {
   email: string;
@@ -47,42 +49,34 @@ export default function Login(): JSX.Element | null {
   }, []); // Empty dependency array for one-time check
 
   return !auth ? ( // Render login form only if not authenticated
-    <div className="login-container">
+    <form className="login" onSubmit={handleSubmit}>
       <div>
-        <form onSubmit={handleSubmit}>
-          <h2> Sign in </h2>
-          <div className="label-container">
-            <div>
-              <label htmlFor="email" id="email-label">
-                Enter e-mail:
-              </label>
-              <input
-                type="text"
-                id="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" id="password-label">
-                Enter password:
-              </label>
-              <input
-                type="password"
-                id="password"
-                required
-                value={password}
-                onChange={(ev) => setPassword(ev.target.value)}
-              />
-            </div>
-            <button className="btn btn--stretched" type="submit">
-              login
-            </button>
-          </div>
-        </form>
+        <label htmlFor="email" id="email-label">
+          E-mail:
+        </label>
+        <input
+          type="text"
+          id="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </div>
-      <div>{/* <Register /> */}</div>
-    </div>
+      <div>
+        <label htmlFor="password" id="password-label">
+          Password:
+        </label>
+        <input
+          type="password"
+          id="password"
+          required
+          value={password}
+          onChange={(ev) => setPassword(ev.target.value)}
+        />
+      </div>
+      <button className="btn btn--stretched" type="submit">
+        login
+      </button>
+    </form>
   ) : null;
 }
