@@ -5,10 +5,8 @@ export default function HomePage() {
     <>
       <section className="container block block--dark block--skewed-left hero">
         <div className="grid grid--1x2">
-          <header>
-            <h1 data-aos="fade-right" className="block__heading">
-              This is a Hero-Heading!
-            </h1>
+          <header className="hero-content">
+            <h1 data-aos="fade-right">This is a Hero-Heading!</h1>
             <p className="hero__tagline">This is the message Hero-Tagline.</p>
             <a href="" className="btn btn--accent btn--stretched">
               Get Started
@@ -23,11 +21,7 @@ export default function HomePage() {
               type="image/png"
               srcSet="http://localhost:5174/src/images/banner.png 1x, images/banner@2x.png 2x"
             /> */}
-            <img
-              className="hero__image"
-              src="http://localhost:5174/src/images/banner.png"
-              alt=""
-            />
+            <img className="hero__image" src="src/images/banner.png" alt="" />
           </picture>
         </div>
       </section>

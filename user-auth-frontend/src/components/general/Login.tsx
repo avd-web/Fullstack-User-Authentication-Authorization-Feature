@@ -3,6 +3,8 @@ import axios from "axios"; // Assuming you use axios for API calls
 
 import "../../styles/Login.css";
 
+import { IoMdLogIn } from "react-icons/io";
+
 // Interface for User object (optional, but improves type safety)
 interface User {
   email: string;
@@ -49,33 +51,35 @@ export default function Login(): JSX.Element | null {
   }, []); // Empty dependency array for one-time check
 
   return !auth ? ( // Render login form only if not authenticated
-    <form className="login" onSubmit={handleSubmit}>
-      <div className="login__field">
-        <label htmlFor="email" id="email-label">
-          Email:
-        </label>
-        <input
-          type="text"
-          id="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+    <form className="login--form nav__item" onSubmit={handleSubmit}>
+      <div className="login">
+        <div className="login__field">
+          <label htmlFor="email" id="email-label">
+            Email:
+          </label>
+          <input
+            type="text"
+            id="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="login__field">
+          <label htmlFor="password" id="password-label">
+            Password:
+          </label>
+          <input
+            type="password"
+            id="password"
+            required
+            value={password}
+            onChange={(ev) => setPassword(ev.target.value)}
+          />
+        </div>
       </div>
-      <div className="login__field">
-        <label htmlFor="password" id="password-label">
-          Password:
-        </label>
-        <input
-          type="password"
-          id="password"
-          required
-          value={password}
-          onChange={(ev) => setPassword(ev.target.value)}
-        />
-      </div>
-      <button className="btn btn--stretched" type="submit">
-        login
+      <button className="btn--small" type="submit">
+        <IoMdLogIn className="icon--small" />
       </button>
     </form>
   ) : null;

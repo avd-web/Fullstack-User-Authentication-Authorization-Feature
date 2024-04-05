@@ -1,4 +1,3 @@
-import "../../styles/Navigation.css";
 import Login from "./Login";
 import { Link } from "react-router-dom";
 
@@ -9,7 +8,7 @@ export default function Navigation() {
     <>
       <nav className="nav collapsible">
         <Link to="/" className="nav__brand">
-          <img src="http://localhost:5174/src/images/logo.svg" alt="" />
+          <img src="src/images/logo.svg" alt="" />
         </Link>
         <LuMenuSquare className="icon icon--white nav__toggler" />
 
@@ -21,15 +20,12 @@ export default function Navigation() {
             <a href="#">Products</a>
           </li>
           <li className="nav__item">
-            <a href="#">About Us</a>
-          </li>
-          <li className="nav__item">
             <a href="#">Contact</a>
           </li>
-          <li className="nav__item">
-            <Login />
-          </li>
         </ul>
+        <div className="nav__list collapsible__content">
+          <Login />
+        </div>
       </nav>
     </>
   );
