@@ -1,21 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import Hero from "./blocks/Hero";
 import UserPage from "./pages/UserPage";
-import Navigation from "./components/general/Navigation";
+import NavBar from "./components/general/NavBar";
 import Footer from "./components/footer/Footer";
 
 //Styles:
-import "./styles/Page-layout.css";
+import "./styles/PageLayout.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Navigation />
+      <NavBar />
 
       <Routes>
-        <Route index element={<HomePage />} />
+        <Route index element={<Hero />} />
         <Route path="/userpage" element={<UserPage />} />
       </Routes>
 

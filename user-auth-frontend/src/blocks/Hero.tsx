@@ -1,27 +1,25 @@
 import { FaSearch } from "react-icons/fa";
 
-export default function HomePage() {
+export default function Hero() {
   return (
     <>
       <section className="container block block--dark block--skewed-left hero">
         <div className="grid grid--1x2">
-          <header className="hero-content">
-            <h1 data-aos="fade-right">This is a Hero-Heading!</h1>
+          <header className="block__header hero-content">
+            <h1 className="block__heading" data-aos="fade-right">
+              This is a Hero-Heading!
+            </h1>
             <p className="hero__tagline">This is the message Hero-Tagline.</p>
             <a href="" className="btn btn--accent btn--stretched">
               Get Started
             </a>
           </header>
           <picture data-aos="zoom-in">
-            {/* <source
-              type="image/webp"
-              srcSet="http://localhost:5174/src/images/banner.webp 1x, images/banner@2x.webp 2x"
+            <img
+              className="hero__image"
+              src="src/assets/images/banner.png"
+              alt=""
             />
-            <source
-              type="image/png"
-              srcSet="http://localhost:5174/src/images/banner.png 1x, images/banner@2x.png 2x"
-            /> */}
-            <img className="hero__image" src="src/images/banner.png" alt="" />
           </picture>
         </div>
       </section>
