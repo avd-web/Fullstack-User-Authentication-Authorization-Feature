@@ -5,40 +5,49 @@ import { LuMenuSquare } from "react-icons/lu";
 import { useState } from "react";
 
 export default function NavBar() {
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(false);
 
-  const toggle = (i: any) => {
-    if (selected === i) {
-      return setSelected(null);
-    }
+  const toggle = () => {
+    // if (selected) {
+    //   return setSelected(null);
+    // }
 
-    setSelected(i);
+    setSelected(!selected);
   };
 
   return (
     <>
-      <nav className="nav collapsible">
-        <Link to="/" className="nav__brand">
-          <img src="src/assets/images/logo.svg" alt="" />
-        </Link>
-        <LuMenuSquare className="icon icon--white nav__toggler" />
+      <div onClick={() => toggle()}>
+        <nav
+          className={
+            selected
+              ? "nav collapsible collapsible--expanded"
+              : "nav collapsible"
+          }
+        >
+          <Link to="/" className="nav__brand">
+            <img src="src/assets/images/logo.svg" alt="" />
+          </Link>
+          <LuMenuSquare className="icon icon--white nav__toggler" />
 
-        {/* <ul className="list nav__list collapsible__content">
-          <li className="nav__item">
-            <a href="#">Home</a>
-          </li>
-          <li className="nav__item">
-            <a href="#">Products</a>
-          </li>
-          <li className="nav__item">
-            <a href="#">Contact</a>
-          </li>
-        </ul>
-        <div className="nav__list collapsible__content">
-          <Login />
-        </div> */}
+          <ul className="list nav__list collapsible__content">
+            <li className="nav__item">
+              <a href="#">Home</a>
+            </li>
+            <li className="nav__item">
+              <a href="#">Products</a>
+            </li>
+            <li className="nav__item">
+              <a href="#">Contact</a>
+            </li>
+          </ul>
+          <div className="nav__list collapsible__content">
+            <Login />
+          </div>
+        </nav>
+      </div>
 
-        <div className="accordion">
+      {/* <div className="accordion">
           {data.map((item, i) => (
             <div className="item">
               <div className="title" onClick={() => toggle(i)}>
@@ -50,15 +59,40 @@ export default function NavBar() {
               </div>
             </div>
           ))}
-        </div>
-      </nav>
+        </div> */}
+
+      {/* <nav className="nav collapsible">
+        <div className="accordion">
+          <div className="item">
+            <div className="title" onClick={() => toggle()}>
+              <Link to="/" className="nav__brand">
+                <img src="src/assets/images/logo.svg" alt="" />
+              </Link>
+              <LuMenuSquare className="icon icon--white nav__toggler" />
+            </div>
+            <div className={selected ? "content show" : "content"}>
+              <ul className="list nav__list collapsible__content">
+                <li className="nav__item">
+                  <a href="#">Hosting</a>
+                </li>
+                <li className="nav__item">
+                  <a href="#">VPS</a>
+                </li>
+                <li className="nav__item">
+                  <a href="#">Domain</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div> */}
+      {/* </nav> */}
     </>
   );
 }
 
-const data = [
-  {
-    question: "question 1",
-    answer: "test-answer1",
-  },
-];
+// const data = [
+//   {
+//     question: "question 1",
+//     answer: "home",
+//   },
+// ];
