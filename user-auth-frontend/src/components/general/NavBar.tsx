@@ -25,9 +25,12 @@ export default function NavBar() {
               : "nav collapsible"
           }
         >
-          <Link to="/" className="nav__brand">
-            <img src="src/assets/images/logo.svg" alt="" />
-          </Link>
+          <div className="nav__brand">
+            <Link to="/">
+              <img src="src/assets/images/logo.svg" alt="" />
+            </Link>
+          </div>
+
           <LuMenuSquare className="icon icon--white nav__toggler" />
 
           <ul className="list nav__list collapsible__content">
@@ -41,6 +44,7 @@ export default function NavBar() {
               <a href="#">Contact</a>
             </li>
           </ul>
+
           <div className="nav__list collapsible__content">
             <Login />
           </div>

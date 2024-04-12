@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Assuming you use axios for API calls
+import axios from "axios";
 
 import "../../styles/Login.css";
 

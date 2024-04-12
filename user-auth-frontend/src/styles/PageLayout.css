@@ -720,9 +720,8 @@ a {
 }
 
 .nav__brand {
-  /* width: 340px; */
   transform: translateY(5px);
-  width: 150px;
+  width: 30vw;
 }
 
 @media screen and (min-width: 840px) {
@@ -731,8 +730,9 @@ a {
   }
 
   .nav__list {
-    width: auto;
+    width: 30vw;
     display: flex;
+    justify-content: space-evenly;
     font-size: 1.6rem;
     max-height: 100%;
     opacity: 1;
