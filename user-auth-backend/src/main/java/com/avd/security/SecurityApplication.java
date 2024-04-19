@@ -7,8 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import static com.avd.security.user.Role.ADMIN;
-import static com.avd.security.user.Role.MANAGER;
+import static com.avd.security.user.Role.*;
 
 @SpringBootApplication
 public class SecurityApplication {
@@ -45,10 +44,10 @@ public class SecurityApplication {
     * Done: decision: all error-messages are send as String, with JSON format. refactor error-messages to JSON format instead of String?
     * Done: refactor error-messages to the correct error for front-end users.
     *
-    * Todo: implement user-DTO
+    * Done: implement user-DTO
     * Todo: implement email-verification for register
     * Done: decision: Deleted the "Alibou" named map in target.classes.com. Why is there an folder named "alibou" in target/classes/com folder?
-    * Todo: add user-seeder.
+    * Done: add user-seeder.
     * Todo: write tests for register and authentication errors.
     * Todo: test logout functionality.
     * Todo: test refresh token functionality.
@@ -107,12 +106,20 @@ public class SecurityApplication {
 			System.out.println("Admin token: " + service.register(admin, ADMIN).getAccessToken());
 
 			var manager = RegisterRequest.builder()
-					.firstname("Admin")
-					.lastname("Admin")
+					.firstname("Manager")
+					.lastname("Manager")
 					.email("manager@mail.com")
 					.password("password")
 					.build();
 			System.out.println("Manager token: " + service.register(manager, MANAGER).getAccessToken());
+
+			var user = RegisterRequest.builder()
+					.firstname("User")
+					.lastname("User")
+					.email("user@mail.com")
+					.password("password")
+					.build();
+			System.out.println("User token: " + service.register(user, USER).getAccessToken());
 
 		};
 	}
