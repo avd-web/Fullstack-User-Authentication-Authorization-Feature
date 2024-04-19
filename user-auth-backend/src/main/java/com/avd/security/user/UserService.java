@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -13,6 +14,15 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository repository;
+    public UserDTO getUser(User currentUser){
+        return UserDTO.builder()
+                .firstname(currentUser.getFirstname())
+                .lastname(currentUser.getLastname())
+                .email(currentUser.getEmail())
+                .role(currentUser.getRole())
+                .build();
+    };
+
     public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
 
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
