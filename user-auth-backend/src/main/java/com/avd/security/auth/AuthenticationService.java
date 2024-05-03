@@ -7,6 +7,8 @@ import com.avd.security.token.TokenType;
 import com.avd.security.user.Role;
 import com.avd.security.user.User;
 import com.avd.security.user.UserRepository;
+import com.avd.security.verification.ConfirmationToken;
+import com.avd.security.verification.ConfirmationTokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +21,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +33,8 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
 
+  private final ConfirmationTokenService confirmationTokenService;
+
   public AuthenticationResponse register(RegisterRequest request) throws SQLException {
     var user = User.builder()
         .firstname(request.getFirstname())
@@ -37,14 +43,34 @@ public class AuthenticationService {
         .password(passwordEncoder.encode(request.getPassword()))
         .role(Role.USER)
         .build();
+
+
+//    String token = UUID.randomUUID().toString();
+//
+//    ConfirmationToken confirmationToken = new ConfirmationToken(
+//            token,
+//            LocalDateTime.now(),
+//            LocalDateTime.now().plusMinutes(15),
+//            user
+//    );
+//
+//    confirmationTokenService.saveConfirmationToken(
+//            confirmationToken);
+
+
     var savedUser = repository.save(user);
+
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
+
+
+
     return AuthenticationResponse.builder()
         .accessToken(jwtToken)
             .refreshToken(refreshToken)
         .build();
+
   }
 
   public AuthenticationResponse register(RegisterRequest request, Role role) throws SQLException {
@@ -54,8 +80,23 @@ public class AuthenticationService {
             .email(request.getEmail())
             .password(passwordEncoder.encode(request.getPassword()))
             .role(role)
+            .enabled(false)
             .build();
+
     var savedUser = repository.save(user);
+
+        String token = UUID.randomUUID().toString();
+
+    ConfirmationToken confirmationToken = new ConfirmationToken(
+            token,
+            LocalDateTime.now(),
+            LocalDateTime.now().plusMinutes(15),
+            user
+    );
+
+    confirmationTokenService.saveConfirmationToken(
+            confirmationToken);
+
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
