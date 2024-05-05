@@ -42,4 +42,9 @@ public class UserService {
         // save the new password
         repository.save(user);
     }
+
+    public int enableUser(String email) {
+        return repository.enableUser(email);
+    }
+
 }

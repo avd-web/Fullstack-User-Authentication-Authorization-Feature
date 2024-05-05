@@ -10,10 +10,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
   Optional<User> findByEmail(String email);
 
-//  @Transactional
-//  @Modifying
-//  @Query("UPDATE User a " +
-//          "SET a.enabled = TRUE WHERE a.email = ?1")
-//  int enableAppUser(String email);
+  @Transactional
+  @Modifying
+  @Query("UPDATE User a " +
+          "SET a.enabled = TRUE WHERE a.email = ?1")
+  int enableUser(String email);
 
 }

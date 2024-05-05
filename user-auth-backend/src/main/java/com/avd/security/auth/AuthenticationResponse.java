@@ -1,5 +1,6 @@
 package com.avd.security.auth;
 
+import com.avd.security.verification.ConfirmationToken;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,4 +17,6 @@ public class AuthenticationResponse {
   private String accessToken;
   @JsonProperty("refresh_token")
   private String refreshToken;
+  @JsonProperty("confirmation_token")
+  private String confirmationToken;
 }
