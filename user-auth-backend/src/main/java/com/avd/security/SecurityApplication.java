@@ -72,6 +72,20 @@ public class SecurityApplication {
 	 */
 
 	/*
+	 * SETUP EXTRA (BACKEND)
+	 * added dependency: spring-boot-starter-mail
+	 * added dependency: <groupId>com.sun.mail</groupId>
+            			<artifactId>jakarta.mail</artifactId>
+            			<version>1.6.3</version>
+	 *
+	 * SMTP (mail) server info:
+	 * installed maildev via: $ npm install -g maildev
+	 * run maildev during development via: $ maildev
+	 * open maildev url: http://127.0.0.1:1080/#/ (http://0.0.0.0:1080/ NOT WORKING)
+	 *
+	 */
+
+	/*
 	* SETUP EXTRA (FRONTEND)
 	* Installed react-router-dom
 	* installed react icons
