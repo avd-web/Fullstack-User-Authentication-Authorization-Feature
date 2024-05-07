@@ -49,6 +49,7 @@ public class SecurityApplication {
     * Todo: implement email-verification for register part 2, check confirmation token on auth, resend token.
     * Done: decision: Deleted the "Alibou" named map in target.classes.com. Why is there an folder named "alibou" in target/classes/com folder?
     * Done: add user-seeder.
+    * Todo: check for correct error messages in front-end.
     * Todo: write tests for register and authentication errors.
     * Todo: test logout functionality.
     * Todo: test refresh token functionality.
