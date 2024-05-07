@@ -19,33 +19,34 @@ public class SecurityApplication {
 
 	/*
 	* Todo: Exception handling:
-	* (Incorrect username/password) BadCredentialsException : 401 "Email and Password don't match."
-    * (Unauthorized for admin route) AccessDeniedException : 403 "Access denied."
-    * (Unauthorized for manager route) ServletException : 403 "Access denied."
-    * (Invalid JWT) SignatureException : 401 "Authentication failed, invalid token."
-    * (Malformed JWT) MalformedJwtException : 401 "Authentication failed, malformed token."
-    * (Empty JWT) customAuthenticationEntryPoint : 401 "Authentication failed, no token found."
+	* (incorrect username/password) BadCredentialsException : 401 "Email and Password don't match."
+    * (unauthorized for admin route) AccessDeniedException : 403 "Access denied."
+    * (unauthorized for manager route) ServletException : 403 "Access denied."
+    * (invalid JWT) SignatureException : 401 "Authentication failed, invalid token."
+    * (malformed JWT) MalformedJwtException : 401 "Authentication failed, malformed token."
+    * (empty JWT) customAuthenticationEntryPoint : 401 "Authentication failed, no token found."
     * (double register, register a user that already exist) SQLException : 409(conflict) "Email already exist."
     * DataIntegrityViolationException
     * HttpMessageNotReadableException
     * MethodArgumentNotValidException
-    *
-    * (Refresh-token Expired) : ExpiredJwtException : 401 "Session expired."
+    * (refresh-token expired) : ExpiredJwtException : 401 "Session expired."
     * Is this all?
     *
-    * Todo: Validation (Email and password)
+    * Todo: Validation (Email and password) part 1, first implementation of user-input-validations.
     * Done: Strong password validation
     * Done: ConfirmPassword: Password match validation
+    * Todo: validation (Email and password) part 2, check and complete 100% safety for online environment.
     *
     * Todo: Generic todos:
-    * Done: Added overloaded register method in AuthenticationService, users get User roles automatically while registering via /register endpoint.
+    * Done: added overloaded register method in AuthenticationService, users get User roles automatically while registering via /register endpoint.
     * Todo: rethink how Admin role is used and created, all credentials are now public on GitHub?
     *
     * Done: decision: all error-messages are send as String, with JSON format. refactor error-messages to JSON format instead of String?
     * Done: refactor error-messages to the correct error for front-end users.
     *
     * Done: implement user-DTO
-    * Todo: implement email-verification for register
+    * Todo: implement email-verification for register part 1, send email with confirmation token.
+    * Todo: implement email-verification for register part 2, check confirmation token on auth, resend token.
     * Done: decision: Deleted the "Alibou" named map in target.classes.com. Why is there an folder named "alibou" in target/classes/com folder?
     * Done: add user-seeder.
     * Todo: write tests for register and authentication errors.
@@ -55,10 +56,18 @@ public class SecurityApplication {
     * Todo: verify if secret-key in application.yml, and other (secret)keys are safe.
     * Todo: test Github/VCS and online presence for security/personal leaks.
     *
-    * Todo: complete end to end testing for user-auth module.
-    *
     * Todo: refactor code to correct code-standard
-    * Todo: fix errors "something is never used" in intelliJ.
+    * Todo: fix warnings/errors "something is never used" in intelliJ.
+    * Todo: write and add explanatory comments, quotes and sources missing in the code.
+    *
+    * Todo: what are licences?
+    * Todo: what are the possibilities to remove Lombok?
+    * Todo: reduce, reuse, refactor (recycle).
+    *
+    * Todo: END-TO-END testing for user-auth-feature.
+    * Todo: backup and order all files for document project completion.
+    * Todo: FINISH!
+    *
     *
 	 */
 
