@@ -51,7 +51,10 @@ public class SecurityApplication {
     * Done: add user-seeder.
     * Todo: check for correct error messages in front-end.
     * Todo: write tests for register and authentication errors.
+    * Todo: implement logout functionality (also in frontend)
     * Todo: test logout functionality.
+    * Todo: implement refresh token functionality (also in frontend)
+    * Todo: document refresh token implementation
     * Todo: test refresh token functionality.
     * Todo: verify the correct access and refresh token expiration dates.
     * Todo: verify if secret-key in application.yml, and other (secret)keys are safe.
@@ -66,6 +69,7 @@ public class SecurityApplication {
     * Todo: reduce, reuse, refactor (recycle).
     *
     * Todo: END-TO-END testing for user-auth-feature.
+    * Todo: document UML (show app functionality)
     * Todo: backup and order all files for document project completion.
     * Todo: FINISH!
     *
