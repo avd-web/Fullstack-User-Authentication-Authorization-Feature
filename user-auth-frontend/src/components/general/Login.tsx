@@ -12,9 +12,14 @@ interface User {
 }
 
 export default function Login(): JSX.Element | null {
-  const [auth, setAuth] = useState<string | null>(
-    sessionStorage.getItem("access_token")
-  );
+  let authenticatedUser = null;
+  if (sessionStorage.getItem("access_token")) {
+    authenticatedUser = sessionStorage.getItem("access_token");
+  } else if (localStorage.getItem("access_token")) {
+    authenticatedUser = localStorage.getItem("access_token");
+  }
+  const [auth, setAuth] = useState<string | null>(authenticatedUser);
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -28,6 +33,9 @@ export default function Login(): JSX.Element | null {
         "http://localhost:8080/api/v1/auth/authenticate",
         authBody
       );
+
+      localStorage.setItem("access_token", authResp.data.access_token);
+      localStorage.setItem("user_email", email);
 
       sessionStorage.setItem("access_token", authResp.data.access_token);
       sessionStorage.setItem("user_email", email);
@@ -47,8 +55,20 @@ export default function Login(): JSX.Element | null {
 
   useEffect(() => {
     // Check auth on component mount
-    setAuth(sessionStorage.getItem("access_token"));
+    if (sessionStorage.getItem("access_token")) {
+      setAuth(sessionStorage.getItem("access_token"));
+    } else if (localStorage.getItem("access_token")) {
+      setAuth(localStorage.getItem("access_token"));
+    }
   }, []); // Empty dependency array for one-time check
+
+  const logout = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("user_email");
+    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("user_email");
+    setAuth(null);
+  };
 
   return !auth ? ( // Render login form only if not authenticated
     <form className="login--form nav__item" onSubmit={handleSubmit}>
@@ -82,5 +102,9 @@ export default function Login(): JSX.Element | null {
         <IoMdLogIn className="icon--small" />
       </button>
     </form>
-  ) : null;
+  ) : (
+    <button className="btn--small" onClick={logout}>
+      <IoMdLogIn className="icon--small" />
+    </button>
+  );
 }
