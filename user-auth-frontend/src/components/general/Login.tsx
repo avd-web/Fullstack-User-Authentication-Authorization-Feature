@@ -40,6 +40,8 @@ export default function Login(): JSX.Element | null {
       sessionStorage.setItem("access_token", authResp.data.access_token);
       sessionStorage.setItem("user_email", email);
       setAuth(sessionStorage.getItem("access_token"));
+
+      window.location.reload();
     } catch (error) {
       console.error("Login error:", error);
       // Handle login errors (optional)
@@ -68,6 +70,7 @@ export default function Login(): JSX.Element | null {
     sessionStorage.removeItem("access_token");
     sessionStorage.removeItem("user_email");
     setAuth(null);
+    window.location.reload();
   };
 
   return !auth ? ( // Render login form only if not authenticated
@@ -103,6 +106,7 @@ export default function Login(): JSX.Element | null {
       </button>
     </form>
   ) : (
+    // add getUser()
     <button className="btn--small" onClick={logout}>
       <IoMdLogIn className="icon--small" />
     </button>

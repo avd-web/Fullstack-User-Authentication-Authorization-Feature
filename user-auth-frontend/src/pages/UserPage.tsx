@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Login from "../components/general/Login";
-import axios, { AxiosError } from "axios";
+import GetUser from "../components/general/GetUser"; // Adjust the import path as necessary
 
 export default function UserPage() {
   const [authenticatedUser, setAuthenticatedUser] = useState<string | null>(
@@ -14,35 +14,6 @@ export default function UserPage() {
     setAuthenticatedUser(token);
   }, []);
 
-  const getUser = async () => {
-    console.log(authenticatedUser);
-    try {
-      if (!authenticatedUser) {
-        throw new Error("No authenticated user found");
-      }
-
-      const response = await axios.get(
-        "http://localhost:8080/api/v1/demo-user/user",
-        {
-          headers: {
-            Authorization: `Bearer ${authenticatedUser}`,
-          },
-        }
-      );
-      console.log("User data:", response.data);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        if (axiosError.response && axiosError.response.status === 401) {
-          console.error("Unauthorized: Please login again.");
-          // Handle unauthorized access, maybe redirect to login page
-          return;
-        }
-      }
-      console.error("getUserError:", error);
-    }
-  };
-
   if (!authenticatedUser) {
     return (
       <>
@@ -52,7 +23,7 @@ export default function UserPage() {
   } else {
     return (
       <>
-        <button onClick={getUser}>Get User Data</button>
+        <GetUser authenticatedUser={authenticatedUser} />
       </>
     );
   }
