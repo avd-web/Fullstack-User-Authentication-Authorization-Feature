@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import "../../styles/Login.css";
-
 import { IoMdLogIn } from "react-icons/io";
+import Logout from "./Logout";
 
 // Interface for User object (optional, but improves type safety)
 interface User {
@@ -12,16 +11,9 @@ interface User {
 }
 
 export default function Login(): JSX.Element | null {
-  let authenticatedUser = null;
-  if (sessionStorage.getItem("access_token")) {
-    authenticatedUser = sessionStorage.getItem("access_token");
-  } else if (localStorage.getItem("access_token")) {
-    authenticatedUser = localStorage.getItem("access_token");
-  }
-  const [auth, setAuth] = useState<string | null>(authenticatedUser);
-
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  // let token = null;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,9 +31,8 @@ export default function Login(): JSX.Element | null {
 
       sessionStorage.setItem("access_token", authResp.data.access_token);
       sessionStorage.setItem("user_email", email);
-      setAuth(sessionStorage.getItem("access_token"));
 
-      window.location.reload();
+      window.location.reload(); // Reload the page to update authentication status
     } catch (error) {
       console.error("Login error:", error);
       // Handle login errors (optional)
@@ -57,23 +48,17 @@ export default function Login(): JSX.Element | null {
 
   useEffect(() => {
     // Check auth on component mount
-    if (sessionStorage.getItem("access_token")) {
-      setAuth(sessionStorage.getItem("access_token"));
-    } else if (localStorage.getItem("access_token")) {
-      setAuth(localStorage.getItem("access_token"));
+    const token =
+      sessionStorage.getItem("access_token") ||
+      localStorage.getItem("access_token");
+    if (token) {
+      // Perform any necessary actions if authenticated
+      console.log("User is authenticated");
     }
   }, []); // Empty dependency array for one-time check
 
-  const logout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("user_email");
-    sessionStorage.removeItem("access_token");
-    sessionStorage.removeItem("user_email");
-    setAuth(null);
-    window.location.reload();
-  };
-
-  return !auth ? ( // Render login form only if not authenticated
+  return !sessionStorage.getItem("access_token") ||
+    !localStorage.getItem("access_token") ? ( // Render login form only if not authenticated
     <form className="login--form nav__item" onSubmit={handleSubmit}>
       <div className="login">
         <div className="login__field">
@@ -106,9 +91,6 @@ export default function Login(): JSX.Element | null {
       </button>
     </form>
   ) : (
-    // add getUser()
-    <button className="btn--small" onClick={logout}>
-      <IoMdLogIn className="icon--small" />
-    </button>
+    <Logout />
   );
 }
