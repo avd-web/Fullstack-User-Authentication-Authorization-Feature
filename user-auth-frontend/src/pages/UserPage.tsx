@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "../components/general/Login";
-import GetUser from "../components/general/GetUser"; // Adjust the import path as necessary
+import GetUser from "../components/general/GetUser";
 
 export default function UserPage() {
   const [authenticatedUser, setAuthenticatedUser] = useState<string | null>(

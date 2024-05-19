@@ -3,6 +3,7 @@ import axios from "axios";
 import "../../styles/Login.css";
 import { IoMdLogIn } from "react-icons/io";
 import Logout from "./Logout";
+import GetUser from "./GetUser";
 
 // Interface for User object (optional, but improves type safety)
 interface User {
@@ -13,7 +14,9 @@ interface User {
 export default function Login(): JSX.Element | null {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  // let token = null;
+  const [authenticatedUser, setAuthenticatedUser] = useState<string | null>(
+    null
+  );
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,7 +45,7 @@ export default function Login(): JSX.Element | null {
   };
 
   const emptyForm = () => {
-    setEmail(""); // Clear form fields instead of reload
+    setEmail("");
     setPassword("");
   };
 
@@ -51,14 +54,14 @@ export default function Login(): JSX.Element | null {
     const token =
       sessionStorage.getItem("access_token") ||
       localStorage.getItem("access_token");
+    setAuthenticatedUser(token);
     if (token) {
       // Perform any necessary actions if authenticated
       console.log("User is authenticated");
     }
   }, []); // Empty dependency array for one-time check
 
-  return !sessionStorage.getItem("access_token") ||
-    !localStorage.getItem("access_token") ? ( // Render login form only if not authenticated
+  return !authenticatedUser ? (
     <form className="login--form nav__item" onSubmit={handleSubmit}>
       <div className="login">
         <div className="login__field">
@@ -91,6 +94,9 @@ export default function Login(): JSX.Element | null {
       </button>
     </form>
   ) : (
-    <Logout />
+    <>
+      <GetUser authenticatedUser={authenticatedUser} />
+      <Logout />
+    </>
   );
 }

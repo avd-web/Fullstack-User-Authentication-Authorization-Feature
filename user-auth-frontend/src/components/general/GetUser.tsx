@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const GetUser: React.FC<{ authenticatedUser: string }> = ({
+const GetUser: React.FC<{ authenticatedUser: string | null }> = ({
   authenticatedUser,
 }) => {
-  const [userData, setUserData] = useState<any>(null); // Use appropriate type for user data
+  const [userData, setUserData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {

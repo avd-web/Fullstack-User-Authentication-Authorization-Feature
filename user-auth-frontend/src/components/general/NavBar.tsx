@@ -8,10 +8,6 @@ export default function NavBar() {
   const [selected, setSelected] = useState(false);
 
   const toggle = () => {
-    // if (selected) {
-    //   return setSelected(null);
-    // }
-
     setSelected(!selected);
   };
 
@@ -27,7 +23,8 @@ export default function NavBar() {
         >
           <div className="nav__brand">
             <Link to="/">
-              <img src="src/assets/images/logo.svg" alt="" />
+              <p>&#9708;</p>
+              {/* <img src="src/assets/images/logo.svg" alt="" /> */}
             </Link>
           </div>
 
@@ -50,53 +47,6 @@ export default function NavBar() {
           </div>
         </nav>
       </div>
-
-      {/* <div className="accordion">
-          {data.map((item, i) => (
-            <div className="item">
-              <div className="title" onClick={() => toggle(i)}>
-                <h2>{item.question}</h2>
-                <span>{selected === i ? "-" : "+"}</span>
-              </div>
-              <div className={selected === i ? "content show" : "content"}>
-                {item.answer}
-              </div>
-            </div>
-          ))}
-        </div> */}
-
-      {/* <nav className="nav collapsible">
-        <div className="accordion">
-          <div className="item">
-            <div className="title" onClick={() => toggle()}>
-              <Link to="/" className="nav__brand">
-                <img src="src/assets/images/logo.svg" alt="" />
-              </Link>
-              <LuMenuSquare className="icon icon--white nav__toggler" />
-            </div>
-            <div className={selected ? "content show" : "content"}>
-              <ul className="list nav__list collapsible__content">
-                <li className="nav__item">
-                  <a href="#">Hosting</a>
-                </li>
-                <li className="nav__item">
-                  <a href="#">VPS</a>
-                </li>
-                <li className="nav__item">
-                  <a href="#">Domain</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div> */}
-      {/* </nav> */}
     </>
   );
 }
-
-// const data = [
-//   {
-//     question: "question 1",
-//     answer: "home",
-//   },
-// ];
