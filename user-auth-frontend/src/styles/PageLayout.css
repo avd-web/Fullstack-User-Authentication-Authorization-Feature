@@ -678,7 +678,7 @@ a {
 .nav {
   background: #000;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
   padding: 1rem;
   align-items: center;
@@ -720,6 +720,8 @@ a {
 }
 
 .nav__brand {
+  display: flex;
+  justify-content: center;
   transform: translateY(5px);
   width: 30vw;
 }

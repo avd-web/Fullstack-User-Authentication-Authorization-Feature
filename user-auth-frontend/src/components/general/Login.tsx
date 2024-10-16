@@ -95,7 +95,8 @@ export default function Login(): JSX.Element | null {
     </form>
   ) : (
     <>
-      <GetUser authenticatedUser={authenticatedUser} />
+      <span>Logged in as:</span>
+      {/* <GetUser authenticatedUser={authenticatedUser} /> */}
       <Logout />
     </>
   );

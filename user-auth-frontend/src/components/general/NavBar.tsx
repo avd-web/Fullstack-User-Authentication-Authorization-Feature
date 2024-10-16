@@ -23,14 +23,14 @@ export default function NavBar() {
         >
           <div className="nav__brand">
             <Link to="/">
-              <p>&#9708;</p>
+              <span style={{ fontSize: "100px" }}>&#9708;</span>
               {/* <img src="src/assets/images/logo.svg" alt="" /> */}
             </Link>
           </div>
 
           <LuMenuSquare className="icon icon--white nav__toggler" />
 
-          <ul className="list nav__list collapsible__content">
+          <ul className="nav list nav__list collapsible__content">
             <li className="nav__item">
               <a href="#">Home</a>
             </li>
@@ -42,7 +42,7 @@ export default function NavBar() {
             </li>
           </ul>
 
-          <div className="nav__list collapsible__content">
+          <div className="nav nav__list collapsible__content">
             <Login />
           </div>
         </nav>
