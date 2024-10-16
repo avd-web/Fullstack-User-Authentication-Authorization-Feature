@@ -35,6 +35,7 @@ public class SecurityApplication {
     * Todo: Validation (Email and password) part 1, first implementation of user-input-validations.
     * Done: Strong password validation
     * Done: ConfirmPassword: Password match validation
+    * Todo: Problem: un-enabled accounts CAN already make requests to /demo-user/user directly after registering but without enabling account via email-check
     * Todo: validation (Email and password) part 2, check and complete 100% safety for online environment.
     *
     * Todo: Generic todos:
